@@ -37,12 +37,12 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-slate-50 px-4">
+    <main className="flex min-h-screen items-center justify-center bg-brand-blue-light px-4">
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-sm rounded-xl border border-slate-200 bg-white p-8 shadow-sm"
+        className="w-full max-w-sm rounded-2xl border border-slate-200 bg-white p-8 shadow-lg"
       >
-        <h1 className="mb-1 text-xl font-semibold text-slate-900">Área administrativa</h1>
+        <h1 className="mb-1 text-xl font-bold text-brand-blue-dark">Área administrativa</h1>
         <p className="mb-6 text-sm text-slate-500">
           Ser Solidário — acesso restrito às inscrições de voluntários.
         </p>
@@ -56,7 +56,7 @@ export default function AdminLoginPage() {
           autoFocus
           value={password}
           onChange={(event) => setPassword(event.target.value)}
-          className="mb-4 w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-slate-500 focus:outline-none"
+          className="mb-4 w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm focus:border-brand-blue focus:outline-none focus:ring-2 focus:ring-brand-blue/30"
         />
 
         {error && <p className="mb-4 text-sm text-red-600">{error}</p>}
@@ -64,7 +64,7 @@ export default function AdminLoginPage() {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full rounded-md bg-slate-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-slate-700 disabled:opacity-60"
+          className="w-full rounded-full bg-brand-blue px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-blue-dark disabled:opacity-60"
         >
           {isSubmitting ? "Entrando..." : "Entrar"}
         </button>
