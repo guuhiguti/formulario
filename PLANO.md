@@ -199,15 +199,17 @@ formulario/
 
 ## 9. Checklist de progresso
 
-- [ ] Setup do projeto Next.js
-- [ ] Banco de dados provisionado e schema criado (com `lgpdConsent`)
-- [ ] Validação (Zod) implementada com máscaras
-- [ ] Formulário completo com lógica condicional (`/voluntariado`)
-- [ ] Página de confirmação (`/voluntariado/confirmacao`)
-- [ ] API de gravação funcionando localmente
-- [ ] Proteção antispam
-- [ ] Autenticação admin (senha única + sessão + middleware)
-- [ ] Página admin listando inscrições (`/admin`)
-- [ ] Testes manuais do fluxo completo (form → confirmação → admin)
-- [ ] Deploy em produção
-- [ ] Teste de ponta a ponta em produção
+- [x] Setup do projeto Next.js
+- [x] Banco de dados provisionado (Vercel Postgres/Neon) e schema criado (com `lgpdConsent`)
+- [x] Validação (Zod) implementada com máscaras
+- [x] Formulário completo com lógica condicional (`/voluntariado`)
+- [x] Página de confirmação (`/voluntariado/confirmacao`)
+- [x] API de gravação funcionando localmente (testado via automação de navegador)
+- [x] Proteção antispam (honeypot + rate limit por IP)
+- [x] Autenticação admin (senha com hash bcrypt + sessão JWT + proxy protegendo `/admin/*`)
+- [x] Página admin listando inscrições (`/admin`) — implementada, aguardando você confirmar
+      visualmente com login real (eu não tenho acesso à senha, só ao hash)
+- [x] Testes manuais do fluxo completo (form → confirmação testado via automação;
+      admin pendente de confirmação sua)
+- [x] Deploy em produção (https://formulario-sooty-seven.vercel.app)
+- [ ] Teste de ponta a ponta em produção com envio real de um voluntário
