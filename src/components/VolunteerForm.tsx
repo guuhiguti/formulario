@@ -91,6 +91,12 @@ export function VolunteerForm() {
 
       if (!response.ok) {
         const result = await response.json().catch(() => null);
+
+        if (response.status === 409 && result?.error === "DUPLICATE_EMAIL") {
+          router.push("/voluntariado/ja-inscrito");
+          return;
+        }
+
         setSubmitError(result?.error ?? "Não foi possível enviar sua inscrição.");
         return;
       }
@@ -243,7 +249,7 @@ export function VolunteerForm() {
         </section>
 
         <section className="mb-10">
-          <h2 className={sectionTitleClass}>Como conheceu o Ser Solidário?</h2>
+          <h2 className={sectionTitleClass}>Como conheceu o Ser Solidário? *</h2>
           <div className="space-y-3">
             {HOW_FOUND_OUT_OPTIONS.map((option) => (
               <RadioOption key={option.value} value={option.value} {...register("howFoundOut")}>

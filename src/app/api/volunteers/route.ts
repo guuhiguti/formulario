@@ -1,3 +1,4 @@
+import { Prisma } from "@prisma/client";
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { volunteerFormSchema } from "@/lib/validation";
@@ -52,25 +53,32 @@ export async function POST(request: Request) {
 
   const data = parsed.data;
 
-  const volunteer = await prisma.volunteer.create({
-    data: {
-      fullName: data.fullName,
-      age: data.age,
-      birthDate: new Date(data.birthDate),
-      neighborhood: data.neighborhood,
-      whatsapp: data.whatsapp,
-      email: data.email,
-      instagram: data.instagram,
-      howFoundOut: data.howFoundOut,
-      referralName: data.referralName?.trim() || null,
-      otherSourceDetail: data.otherSourceDetail?.trim() || null,
-      expectations: data.expectations,
-      hasExperience: data.hasExperience,
-      experienceDetail: data.experienceDetail?.trim() || null,
-      interestAreas: data.interestAreas,
-      lgpdConsent: data.lgpdConsent,
-    },
-  });
+  try {
+    const volunteer = await prisma.volunteer.create({
+      data: {
+        fullName: data.fullName,
+        age: data.age,
+        birthDate: new Date(data.birthDate),
+        neighborhood: data.neighborhood,
+        whatsapp: data.whatsapp,
+        email: data.email,
+        instagram: data.instagram,
+        howFoundOut: data.howFoundOut,
+        referralName: data.referralName?.trim() || null,
+        otherSourceDetail: data.otherSourceDetail?.trim() || null,
+        expectations: data.expectations,
+        hasExperience: data.hasExperience,
+        experienceDetail: data.experienceDetail?.trim() || null,
+        interestAreas: data.interestAreas,
+        lgpdConsent: data.lgpdConsent,
+      },
+    });
 
-  return NextResponse.json({ ok: true, id: volunteer.id }, { status: 201 });
+    return NextResponse.json({ ok: true, id: volunteer.id }, { status: 201 });
+  } catch (error) {
+    if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2002") {
+      return NextResponse.json({ error: "DUPLICATE_EMAIL" }, { status: 409 });
+    }
+    throw error;
+  }
 }

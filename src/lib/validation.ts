@@ -40,12 +40,10 @@ export const INTEREST_AREA_OPTIONS = [
 const WHATSAPP_REGEX = /^\(\d{2}\) \d{5}-\d{4}$/;
 const INSTAGRAM_REGEX = /^@[a-zA-Z0-9._]{1,30}$/;
 
-const howFoundOutEnum = z.enum([
-  "REDES_SOCIAIS",
-  "INDICACAO_VOLUNTARIO",
-  "INDICACAO_AMIGOS_FAMILIA",
-  "OUTRO",
-]);
+const howFoundOutEnum = z.enum(
+  ["REDES_SOCIAIS", "INDICACAO_VOLUNTARIO", "INDICACAO_AMIGOS_FAMILIA", "OUTRO"],
+  { message: "Selecione uma opção." },
+);
 
 const interestAreaEnum = z.enum([
   "MIDIAS_SOCIAIS_MARKETING",
@@ -79,7 +77,7 @@ export const volunteerFormSchema = z
     whatsapp: z
       .string()
       .regex(WHATSAPP_REGEX, "Informe o WhatsApp no formato (99) 99999-9999."),
-    email: z.string().trim().email("Informe um e-mail válido."),
+    email: z.string().trim().toLowerCase().email("Informe um e-mail válido."),
     instagram: z
       .string()
       .trim()

@@ -38,7 +38,7 @@ model Volunteer {
   birthDate    DateTime
   neighborhood String
   whatsapp     String
-  email        String
+  email        String  @unique
   instagram    String
 
   howFoundOut       HowFoundOut
