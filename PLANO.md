@@ -117,7 +117,8 @@ enum VolunteerStatus {
 3. **`/admin`** — painel simples para visualizar as inscrições recebidas (lista/tabela),
    protegido por senha única.
    - **`/admin/login`** — tela de login com a senha única.
-   - Autenticação: senha única definida em variável de ambiente (`ADMIN_PASSWORD`), sessão via
+   - Autenticação: senha única cujo hash bcrypt fica em variável de ambiente
+     (`ADMIN_PASSWORD_HASH`, nunca a senha em texto puro), sessão via
      cookie assinado (httpOnly, secure em produção) após login correto. Middleware do Next.js
      protege todas as rotas `/admin/*` exceto `/admin/login`, redirecionando quem não estiver
      autenticado.
@@ -146,7 +147,7 @@ formulario/
 │   │   │   └── admin/
 │   │   │       ├── login/route.ts    # POST: valida senha, cria cookie de sessão
 │   │   │       └── logout/route.ts   # POST: destrói cookie de sessão
-│   │   └── middleware.ts             # protege /admin/*
+│   └── proxy.ts                       # protege /admin/* (convenção Next.js 16, antigo middleware.ts)
 │   ├── components/
 │   │   └── VolunteerForm.tsx         # componente do formulário (client component)
 │   ├── lib/
@@ -174,7 +175,7 @@ formulario/
 6. **API de gravação** — rota `POST /api/volunteers`: valida payload, grava no Postgres via
    Prisma, retorna sucesso/erro tratado.
 7. **Proteção básica contra spam** — honeypot field invisível + rate limit simples por IP.
-8. **Autenticação admin** — `ADMIN_PASSWORD` em variável de ambiente, rota de login
+8. **Autenticação admin** — `ADMIN_PASSWORD_HASH` (hash bcrypt, nunca a senha em texto puro) em variável de ambiente, rota de login
    (`/admin/login` + `POST /api/admin/login`), cookie de sessão httpOnly assinado, middleware
    protegendo `/admin/*`, logout.
 9. **Página admin** — `/admin` lista as inscrições (tabela com nome, contato, áreas de
@@ -183,7 +184,7 @@ formulario/
     admin), casos de borda (campos obrigatórios vazios, condicionais, e-mail inválido, LGPD
     desmarcado, tentativa de acessar `/admin` sem login).
 11. **Deploy** — publicar banco gerenciado, configurar variáveis de ambiente (`DATABASE_URL`,
-    `ADMIN_PASSWORD`, chave de sessão) na Vercel, deploy do projeto, teste em produção com
+    `ADMIN_PASSWORD_HASH` (hash bcrypt, nunca a senha em texto puro), chave de sessão) na Vercel, deploy do projeto, teste em produção com
     envio real e login admin real.
 12. **Entrega** — link final do formulário e do admin para o usuário, com a senha admin
     compartilhada de forma segura (fora do chat/commit).

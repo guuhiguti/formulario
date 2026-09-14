@@ -260,26 +260,34 @@ export function VolunteerForm() {
         <legend className={labelClass}>
           Você já teve alguma experiência com trabalho voluntário? *
         </legend>
-        <div className="space-y-2">
-          <label className="flex items-center gap-2 text-sm text-slate-700">
-            <input
-              type="radio"
-              value="true"
-              {...register("hasExperience", { setValueAs: (value) => value === "true" })}
-              className="h-4 w-4"
-            />
-            Sim
-          </label>
-          <label className="flex items-center gap-2 text-sm text-slate-700">
-            <input
-              type="radio"
-              value="false"
-              {...register("hasExperience", { setValueAs: (value) => value === "true" })}
-              className="h-4 w-4"
-            />
-            Não
-          </label>
-        </div>
+        <Controller
+          control={control}
+          name="hasExperience"
+          render={({ field }) => (
+            <div className="space-y-2">
+              <label className="flex items-center gap-2 text-sm text-slate-700">
+                <input
+                  type="radio"
+                  checked={field.value === true}
+                  onChange={() => field.onChange(true)}
+                  onBlur={field.onBlur}
+                  className="h-4 w-4"
+                />
+                Sim
+              </label>
+              <label className="flex items-center gap-2 text-sm text-slate-700">
+                <input
+                  type="radio"
+                  checked={field.value === false}
+                  onChange={() => field.onChange(false)}
+                  onBlur={field.onBlur}
+                  className="h-4 w-4"
+                />
+                Não
+              </label>
+            </div>
+          )}
+        />
         <FieldError message={errors.hasExperience?.message} />
 
         {hasExperience === true && (

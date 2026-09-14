@@ -91,7 +91,7 @@ export const volunteerFormSchema = z
       .string()
       .trim()
       .min(10, "Conte um pouco mais sobre o que você espera."),
-    hasExperience: z.coerce.boolean(),
+    hasExperience: z.boolean({ message: "Selecione uma opção." }),
     experienceDetail: z.string().trim().optional().or(z.literal("")),
     interestAreas: z
       .array(interestAreaEnum)

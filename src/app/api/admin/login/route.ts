@@ -1,9 +1,10 @@
+import bcrypt from "bcryptjs";
 import { NextResponse } from "next/server";
 import { ADMIN_SESSION_COOKIE, ADMIN_SESSION_MAX_AGE, createAdminSessionToken } from "@/lib/auth";
 
 export async function POST(request: Request) {
-  const adminPassword = process.env.ADMIN_PASSWORD;
-  if (!adminPassword) {
+  const adminPasswordHash = process.env.ADMIN_PASSWORD_HASH;
+  if (!adminPasswordHash) {
     return NextResponse.json(
       { error: "Configuração de admin ausente no servidor." },
       { status: 500 },
@@ -13,7 +14,8 @@ export async function POST(request: Request) {
   const body = await request.json().catch(() => null);
   const password = typeof body?.password === "string" ? body.password : "";
 
-  if (password !== adminPassword) {
+  const isValid = password.length > 0 && bcrypt.compareSync(password, adminPasswordHash);
+  if (!isValid) {
     return NextResponse.json({ error: "Senha incorreta." }, { status: 401 });
   }
 
