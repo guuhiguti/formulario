@@ -121,20 +121,33 @@ export function VolunteerForm() {
 
       <section className="mb-8 rounded-xl bg-brand-blue-light p-5 sm:p-6">
         <h2 className="mb-2 text-xl font-bold text-brand-blue-dark">Antes de começar</h2>
-        <p className="mb-4 text-base text-slate-700">
-          Ao enviar este formulário, você concorda com a coleta e o uso dos seus dados
-          pessoais para fins de contato e organização das atividades de voluntariado do Ser
-          Solidário, conforme a LGPD (Lei nº 13.709/2018). Seus dados não serão compartilhados
-          com terceiros sem o seu consentimento. Leia e concorde abaixo para liberar o
-          restante do formulário.
+        <p className="mb-3 text-base text-slate-700">
+          Ao prosseguir com sua inscrição, você declara estar de acordo com as condições de
+          participação, incluindo:
         </p>
+        <ul className="mb-4 list-disc space-y-1.5 pl-5 text-base text-slate-700">
+          <li>o tratamento dos seus dados pessoais conforme a LGPD (Lei nº 13.709/2018);</li>
+          <li>
+            as condições do trabalho voluntário, conforme a Lei nº 9.608/1998 e o Termo de
+            Adesão ao Serviço Voluntário;
+          </li>
+          <li>
+            a contribuição de participação de R$ 53,00 por ação, destinada ao custeio da
+            atividade e das despesas relacionadas aos voluntários, sem reembolso em caso de
+            desistência ou impossibilidade de comparecimento;
+          </li>
+          <li>
+            a realização e utilização de registros fotográficos e audiovisuais para fins
+            institucionais e de divulgação.
+          </li>
+        </ul>
         <label className="flex cursor-pointer items-start gap-3 rounded-xl border-2 border-brand-blue bg-white px-4 py-4 text-base text-slate-800">
           <input
             type="checkbox"
             {...register("lgpdConsent")}
             className="mt-0.5 h-5 w-5 accent-brand-blue"
           />
-          <span>Concordo com os termos de uso de dados. *</span>
+          <span>Li e concordo com as condições acima. *</span>
         </label>
         <FieldError message={errors.lgpdConsent?.message} />
       </section>

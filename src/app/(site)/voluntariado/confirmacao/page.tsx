@@ -1,4 +1,7 @@
 import Link from "next/link";
+import { CopyPixKeyButton } from "@/components/CopyPixKeyButton";
+
+const PIX_KEY = "19 98153-0819";
 
 export default function ConfirmacaoPage() {
   return (
@@ -19,10 +22,18 @@ export default function ConfirmacaoPage() {
         <h1 className="mb-3 text-2xl font-bold text-brand-blue-dark">
           Inscrição enviada com sucesso!
         </h1>
-        <p className="mb-8 text-base text-slate-600">
-          Obrigado por se inscrever como voluntário do Ser Solidário. Em breve nossa equipe vai
-          entrar em contato pelo WhatsApp ou e-mail informado.
-        </p>
+        <div className="mb-8 rounded-xl border border-brand-blue/20 bg-brand-blue-light p-5 text-left">
+          <p className="mb-3 text-sm text-slate-700">
+            Realize a contribuição de <strong>R$ 53,00</strong> e envie o comprovante pelo
+            WhatsApp, informando em quais eventos você irá participar.
+          </p>
+          <p className="text-sm text-slate-800">
+            <strong>Chave PIX: {PIX_KEY}</strong>
+            <br />
+            Banco Inter | Fabiana Higuti
+          </p>
+          <CopyPixKeyButton pixKey={PIX_KEY} />
+        </div>
         <Link
           href="/voluntariado"
           className="inline-block rounded-full bg-brand-blue px-6 py-3 text-sm font-semibold text-white transition hover:bg-brand-blue-dark"
